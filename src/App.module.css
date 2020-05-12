@@ -1,0 +1,10 @@
+.main {
+  background-color: brown;
+}
+
+.content {
+  max-width: 1024;
+  margin: auto;
+  background-color: chocolate;
+  color: whitesmoke;
+}
