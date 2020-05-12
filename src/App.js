@@ -26,6 +26,11 @@ function App() {
               />
             </Route>
           </Switch>
+          <Redirect
+            to={{
+              pathname: "/404",
+            }}
+          />
         </Router>
       </div>
       <Footer />
