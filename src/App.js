@@ -6,35 +6,37 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-import styles from "./App.module.css";
+import styles from "./App.module.scss";
 import PrivateRoute from "components/PrivateRoute";
 function App() {
   return (
-    <div className={styles.main}>
-      <Header />
-      <div className={styles.content}>
-        <Router>
+    <Router>
+      <div className={styles.main}>
+        <Header />
+        <div className={styles.content}>
           <Switch>
             <PrivateRoute path="/login">Login</PrivateRoute>
             <Route path="/list">List</Route>
             <Route path="/home">Home</Route>
-            <Route path="/">
+            <Route exact path="/">
               <Redirect
                 to={{
                   pathname: "/home",
                 }}
               />
             </Route>
+            <Route>
+              <Redirect
+                to={{
+                  pathname: "/404",
+                }}
+              />
+            </Route>
           </Switch>
-          <Redirect
-            to={{
-              pathname: "/404",
-            }}
-          />
-        </Router>
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </Router>
   );
 }
 
