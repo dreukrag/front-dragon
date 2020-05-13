@@ -1,8 +1,8 @@
 import React from 'react';
-
+import styles from './footer.module.scss'
 const Footer = () => (
-    <div className="bg-dark">
-        <h1>Footer</h1>
+    <div className={["bg-dark", styles.footer].join(" ")}>
+        <p>Footer</p>
     </div>
 )
 
