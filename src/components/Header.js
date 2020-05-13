@@ -10,8 +10,10 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import styles from "./header.module.scss";
+import { useSelector } from "react-redux";
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -31,16 +33,30 @@ const Header = () => {
         <NavbarToggler color="dark" onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
-            <NavItem>
-              <NavLink>
-                <Link
-                  className={["alert-link", styles.link].join(" ")}
-                  to="/login"
-                >
-                  Login
-                </Link>
-              </NavLink>
-            </NavItem>
+            {isAuthenticated ? (
+              <NavItem>
+                <NavLink>
+                  <Link
+                    className={["alert-link", styles.link].join(" ")}
+                    to="/list"
+                  >
+                    List
+                  </Link>
+                </NavLink>
+              </NavItem>
+            ) : (
+              <NavItem>
+                <NavLink>
+                  <Link
+                    className={["alert-link", styles.link].join(" ")}
+                    to="/login"
+                  >
+                    Login
+                  </Link>
+                </NavLink>
+              </NavItem>
+            )}
+
             <NavItem>
               <NavLink>
                 <Link

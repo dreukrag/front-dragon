@@ -1,5 +1,6 @@
 import React from "react";
-import { Header, Footer } from "components";
+import { Header, Footer, PrivateRoute, PublicRoute } from "components";
+import Login from "pages/Login";
 import {
   BrowserRouter as Router,
   Route,
@@ -7,7 +8,6 @@ import {
   Redirect,
 } from "react-router-dom";
 import styles from "./App.module.scss";
-import PrivateRoute from "components/PrivateRoute";
 function App() {
   return (
     <Router>
@@ -15,8 +15,10 @@ function App() {
         <Header />
         <div className={styles.content}>
           <Switch>
-            <PrivateRoute path="/login">Login</PrivateRoute>
-            <Route path="/list">List</Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <PrivateRoute path="/list">List</PrivateRoute>
             <Route path="/home">Home</Route>
             <Route exact path="/">
               <Redirect
