@@ -1,10 +1,12 @@
+@import "Colors.module.scss";
 .link {
-    color: white;
+    color: $text-color;
     font-weight: bold;
     font-size: large;
     &:hover {
-      color: whitesmoke;
+      color: $text-color-darker;
     }
+    margin: 0 12px;
   &.main {
     font-size: x-large;
   }

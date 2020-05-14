@@ -8,6 +8,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import styles from "./App.module.scss";
+import DragonList from "pages/DragonList";
 function App() {
   return (
     <Router>
@@ -18,7 +19,12 @@ function App() {
             <Route path="/login">
               <Login />
             </Route>
-            <PrivateRoute path="/list">List</PrivateRoute>
+            {/* <PrivateRoute path="/list">
+              <DragonList />
+            </PrivateRoute> */}
+            <Route path="/list">
+              <DragonList />
+            </Route>
             <Route path="/home">Home</Route>
             <Route exact path="/">
               <Redirect

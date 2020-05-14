@@ -1,14 +1,17 @@
+@import "Colors.module.scss";
+
 .main {
-  background-color: dimgray;
+  background-color: $main;
   min-height: 100vh;
 }
 
 .content {
   max-width: 768px;
-  background-color: gray;
-  color: whitesmoke;
+  background-color: $secondary;
+  color: $text-color;
   padding: 12px;
   margin: 24px auto;
   border-radius: 12px;
-  min-height: calc( 100vh - 171px);
+  //Header, footer, content margins
+  min-height: calc( 100vh - 52px - 64px - 48px);
 }
