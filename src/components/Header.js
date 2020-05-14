@@ -6,7 +6,6 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import styles from "./header.module.scss";
@@ -35,30 +34,25 @@ const Header = () => {
           <Nav className="mr-auto" navbar>
             {isAuthenticated ? (
               <NavItem>
-                <NavLink>
                   <Link
                     className={["alert-link", styles.link].join(" ")}
                     to="/list"
                   >
                     List
                   </Link>
-                </NavLink>
               </NavItem>
             ) : (
               <NavItem>
-                <NavLink>
                   <Link
                     className={["alert-link", styles.link].join(" ")}
                     to="/login"
                   >
                     Login
                   </Link>
-                </NavLink>
               </NavItem>
             )}
 
             <NavItem>
-              <NavLink>
                 <Link
                   className={["alert-link", styles.link].join(" ")}
                   target="_blank"
@@ -66,7 +60,6 @@ const Header = () => {
                 >
                   Github
                 </Link>
-              </NavLink>
             </NavItem>
           </Nav>
         </Collapse>

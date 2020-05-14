@@ -1,0 +1,21 @@
+@import "Colors.module.scss";
+.tile {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: column;
+  border: 6px solid $text-color;
+  border-radius: 12px;
+  margin: 24px;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 128px;
+  width: 128px;
+  &:hover {
+      cursor: pointer;
+  }
+
+  p {
+      font-weight: bold;
+  }
+}
