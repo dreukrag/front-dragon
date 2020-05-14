@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import { IconError, IconSuccess } from "components";
 import { useHistory } from "react-router-dom";
+import styles from "./Login.module.scss";
 
 const MB = ({ children, ...rest }) => (
   <ModalBody
@@ -116,26 +117,39 @@ const Login = () => {
   };
   return (
     <div>
-      <form onSubmit={submit} className="form-group">
-        <input
-          className="form-control"
-          type="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          className="form-control"
-          type="password"
-          name="password"
-          value={pw}
-          onChange={(e) => setPw(e.target.value)}
-        />
-        <button className="btn btn-dark" type="submit">
-          Login
-        </button>
+      <form onSubmit={submit}>
+        <div className="form-group">
+          <input
+            className="form-control"
+            type="email"
+            name="email"
+            placeholder="Enter your e-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <input
+            className="form-control"
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+            value={pw}
+            onChange={(e) => setPw(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <button className="btn btn-dark" type="submit">
+            Login
+          </button>
+        </div>
       </form>
-      <Modal isOpen={isModalOpen} backdrop="static" keyboard={true}>
+      <Modal
+        className={styles.modal}
+        isOpen={isModalOpen}
+        backdrop="static"
+        keyboard={true}
+      >
         {getModalContent()}
       </Modal>
     </div>
