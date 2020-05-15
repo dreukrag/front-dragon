@@ -70,8 +70,7 @@ export const EditDragonDetails = (id, dt) => {
   const data = {
     ...dt,
     createdAt: new Date(),
-
-  }
+  };
   return async (dispatch) => {
     dispatch({ type: "EDIT_DRAGON_DETAILS_START" });
     try {
@@ -93,6 +92,32 @@ export const EditDragonDetails = (id, dt) => {
     } catch (err) {
       console.log(err);
       dispatch({ type: "EDIT_DRAGON_DETAILS_SERVER_FAILURE" });
+    }
+  };
+};
+
+//Action creator for editing the dragon detauls
+export const DeleteDragon = (id) => {
+  return async (dispatch) => {
+    dispatch({ type: "DELETE_DRAGON_START" });
+    try {
+      //Simulate server delay
+      await new Promise((resolve) => {
+        setTimeout(resolve, 2000);
+      });
+      const response = await Axios.delete(
+        `http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/dragon/${id}`
+      );
+
+      if (response.status === 200) {
+        dispatch({
+          type: "DELETE_DRAGON_SUCCESS",
+          payload: response.data,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+      dispatch({ type: "DELETE_DRAGON_SERVER_FAILURE" });
     }
   };
 };
@@ -167,6 +192,23 @@ function DragonReducer(state = initialState, action) {
       return {
         ...state,
         editDragonDetailsStatus: "SERVER_FAILURE",
+      };
+
+    case "DELETE_DRAGON_START":
+      return {
+        ...state,
+        editDragonDetailsStatus: "LOADING",
+      };
+    case "DELETE_DRAGON_SUCCESS":
+      return {
+        ...state,
+        editDragonDetailsStatus: "SUCCESS_DELETE",
+        selectedDragon: action.payload,
+      };
+    case "DELETE_DRAGON_SERVER_FAILURE":
+      return {
+        ...state,
+        editDragonDetailsStatus: "SERVER_FAILURE_DELETE",
       };
 
     default:
