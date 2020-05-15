@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import { Spinner } from "reactstrap";
 import { doLogin, loginStatuses } from "redux/AuthReducer";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
+import { Button, ModalBody, ModalFooter } from "reactstrap";
 import { IconError, IconSuccess } from "components";
 import { useHistory } from "react-router-dom";
-import styles from "./Login.module.scss";
+import CenteredModal from "components/CenteredModal";
 
 const MB = ({ children, ...rest }) => (
   <ModalBody
@@ -144,14 +144,13 @@ const Login = () => {
           </button>
         </div>
       </form>
-      <Modal
-        className={styles.modal}
+      <CenteredModal
         isOpen={isModalOpen}
         backdrop="static"
         keyboard={true}
       >
         {getModalContent()}
-      </Modal>
+      </CenteredModal>
     </div>
   );
 };
