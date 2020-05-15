@@ -36,10 +36,25 @@ export const GetDragons = () => {
   };
 };
 
-//Action creator for getting the dragon detauls
+//Action creator for getting the dragon details
 export const GetDragonDetails = (id) => {
   return async (dispatch) => {
     dispatch({ type: "GET_DRAGON_DETAILS_START" });
+
+    //If we are adding a dragon we simply forward an empty dragon
+    //the user can then edit and save it.
+    if (id === "addDragon")
+      return dispatch({
+        type: "GET_DRAGON_DETAILS_SUCCESS",
+        payload: {
+          name: "",
+          histories: "",
+          type: "",
+          imageUrl: "",
+          id: "addDragon",
+        },
+      });
+
     try {
       //Simulate server delay
       await new Promise((resolve) => {
@@ -65,7 +80,7 @@ export const GetDragonDetails = (id) => {
   };
 };
 
-//Action creator for editing the dragon detauls
+//Action creator for editing the dragon details
 export const EditDragonDetails = (id, dt) => {
   const data = {
     ...dt,
@@ -96,7 +111,39 @@ export const EditDragonDetails = (id, dt) => {
   };
 };
 
-//Action creator for editing the dragon detauls
+//Action creator for adding a dragon
+export const AddDragon = (dt) => {
+  const data = {
+    ...dt,
+    createdAt: new Date(),
+  };
+
+  return async (dispatch) => {
+    dispatch({ type: "ADD_DRAGON_START" });
+    try {
+      //Simulate server delay
+      await new Promise((resolve) => {
+        setTimeout(resolve, 2000);
+      });
+      const response = await Axios.post(
+        `http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/dragon/`,
+        data
+      );
+
+      if (response.status === 201) {
+        dispatch({
+          type: "ADD_DRAGON_SUCCESS",
+          payload: response.data,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+      dispatch({ type: "ADD_DRAGON_SERVER_FAILURE" });
+    }
+  };
+};
+
+//Action creator for deleting the dragon details
 export const DeleteDragon = (id) => {
   return async (dispatch) => {
     dispatch({ type: "DELETE_DRAGON_START" });
@@ -209,6 +256,23 @@ function DragonReducer(state = initialState, action) {
       return {
         ...state,
         editDragonDetailsStatus: "SERVER_FAILURE_DELETE",
+      };
+
+      case "ADD_DRAGON_START":
+      return {
+        ...state,
+        editDragonDetailsStatus: "LOADING",
+      };
+    case "ADD_DRAGON_SUCCESS":
+      return {
+        ...state,
+        editDragonDetailsStatus: "SUCCESS_ADD",
+        selectedDragon: action.payload,
+      };
+    case "ADD_DRAGON_SERVER_FAILURE":
+      return {
+        ...state,
+        editDragonDetailsStatus: "SERVER_FAILURE_ADD",
       };
 
     default:

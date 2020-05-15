@@ -5,6 +5,6 @@ export const GetBorderColorFromDragonColor = (cl) => {
     case "Blue":
       return "#6a8caf";
     default:
-      return "white";
+      return cl.toLowerCase();
   }
 };

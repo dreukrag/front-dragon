@@ -8,6 +8,7 @@ import { Spinner, ModalBody } from "reactstrap";
 import CenteredModal from "components/CenteredModal";
 import { IconError } from "components";
 import DragonDetailsForm from "components/DragonDetailsForm";
+import AddDragonTile from "components/AddDragonTile";
 
 const MB = ({ children, ...rest }) => (
   <ModalBody
@@ -30,6 +31,7 @@ const DragonList = () => {
   const dragonDetailsStatus = useSelector(
     (state) => state.dragon.dragonDetailsStatus
   );
+  const dragonsStatus = useSelector((state) => state.dragon.dragonsStatus);
 
   useEffect(() => {
     dispatch(GetDragons());
@@ -40,7 +42,11 @@ const DragonList = () => {
       case "LOADING":
         return <Spinner color="primary" />;
       case "SUCCESS":
-        return <DragonDetailsForm close={() => dispatch({ type: "DESELECT_DRAGON" })}/>;
+        return (
+          <DragonDetailsForm
+            close={() => dispatch({ type: "DESELECT_DRAGON" })}
+          />
+        );
       case "NO_INFO":
         return (
           <p>We couldn't find any aditional information on the dragon :(</p>
@@ -60,27 +66,45 @@ const DragonList = () => {
       default:
         return null;
     }
+  }; //dragonsStatus
+  const getContent = () => {
+    switch (dragonsStatus) {
+      case "SUCCESS":
+        return (
+          <>
+            {dragons.map(({ id, name, type, imageUrl }) => (
+              <DragonTile
+                id={id}
+                name={name}
+                type={type}
+                image={imageUrl}
+                onClick={() => dispatch(GetDragonDetails(id))}
+              />
+            ))}
+            <AddDragonTile onClick={() => dispatch(GetDragonDetails("addDragon"))} />
+          </>
+        );
+      case "LOADING":
+        return (
+          <>
+            <p>finding dragons...</p>
+            <Spinner color="white" />
+          </>
+        );
+      default:
+        return null;
+    }
   };
   return (
     <div>
       <h1>Welcome to the dragon codex!</h1>
       <h5>You'll can find all the information about dragons below!</h5>
-      <div className={styles.list}>
-        {dragons.map(({ id, name, type, imageUrl }) => (
-          <DragonTile
-            id={id}
-            name={name}
-            type={type}
-            image={imageUrl}
-            onClick={() => dispatch(GetDragonDetails(id))}
-          />
-        ))}
-      </div>
+      <div className={styles.list}>{getContent()}</div>
       <CenteredModal
         isOpen={dragonDetailsStatus !== "INACTIVE"}
         backdrop={true}
         keyboard={true}
-        toggle={() => dispatch({ type: "DESELECT_DRAGON" })}
+        // toggle={() => dispatch({ type: "DESELECT_DRAGON" })}
       >
         <MB>{getModalContent()}</MB>
       </CenteredModal>

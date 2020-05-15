@@ -1,0 +1,10 @@
+@import "Colors.module.scss";
+@import "components/DragonTile.module.scss";
+
+.tile {
+  @extend .tile;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
