@@ -10,6 +10,8 @@ import {
   GetDragons,
 } from "redux/DragonReducer";
 import { Spinner } from "reactstrap";
+let closeTimeout = null;
+
 const DragonDetailsForm = ({ close }) => {
   const selectedDragon = useSelector((state) => state.dragon.selectedDragon);
   const editDragonDetailsStatus = useSelector(
@@ -25,7 +27,6 @@ const DragonDetailsForm = ({ close }) => {
   });
 
   const dispatch = useDispatch();
-  let closeTimeout = null;
 
   useEffect(() => {
     if (selectedDragon.id === "addDragon") setEditing(true);
@@ -105,8 +106,10 @@ const DragonDetailsForm = ({ close }) => {
   };
 
   const getContent = () => {
+    clearTimeout(closeTimeout);
     switch (editDragonDetailsStatus) {
       case "INACTIVE":
+        console.log("INACTIVE")
         return (
           <div className={styles.main}>
             <div className={styles.topBar}>
@@ -182,50 +185,45 @@ const DragonDetailsForm = ({ close }) => {
           </div>
         );
       case "LOADING":
+        console.log("LOADING")
         return (
           <>
             <p>Working, please wait...</p>
-            <p>
-              <Spinner color="primary" />
-            </p>
+            <Spinner color="primary" />
           </>
         );
 
       case "SUCCESS":
-        clearTimeout(closeTimeout);
+        console.log("SUCCESS")
         closeTimeout = setTimeout(() => {
           console.log("SUCCESS");
-          dispatch(GetDragons());
           close();
+          dispatch(GetDragons());
         }, 2000);
         return <p>Changes were saved successfully!</p>;
-
       case "SUCCESS_DELETE":
-        console.log(closeTimeout);
-        clearTimeout(closeTimeout);
-        console.log(closeTimeout);
+        console.log("SUCCESS_DELETE")
         closeTimeout = setTimeout(() => {
-          console.log("SUCCESS_DELETE");
-          dispatch(GetDragons());
           close();
+          dispatch(GetDragons());
         }, 2000);
         return <p>Dragon deleted successfully!</p>;
 
       case "SUCCESS_ADD":
-        clearTimeout(closeTimeout);
+        console.log("SUCCESS_ADD")
         closeTimeout = setTimeout(() => {
           console.log("SUCCESS_ADD");
-          dispatch(GetDragons());
           close();
+          dispatch(GetDragons());
         }, 2000);
         return <p>New Dragon added successfully!</p>;
 
       case "SERVER_FAILURE_DELETE":
-        clearTimeout(closeTimeout);
+        console.log("SERVER_FAILURE_DELETE")
         closeTimeout = setTimeout(() => {
           console.log("SERVER_FAILURE_DELETE");
-          dispatch(GetDragons());
           close();
+          dispatch(GetDragons());
         }, 2000);
         return (
           <p>
@@ -234,11 +232,11 @@ const DragonDetailsForm = ({ close }) => {
         );
 
       default:
-        clearTimeout(closeTimeout);
+        console.log("default")
         closeTimeout = setTimeout(() => {
           console.log("DEFAULT");
-          dispatch(GetDragons());
           close();
+          dispatch(GetDragons());
         }, 5000);
 
         const input = document.createElement("input");

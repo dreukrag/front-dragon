@@ -219,6 +219,7 @@ function DragonReducer(state = initialState, action) {
     case "DESELECT_DRAGON":
       return {
         ...state,
+        editDragonDetailsStatus: "INACTIVE",
         dragonDetailsStatus: "INACTIVE",
         selectedDragon: null,
       };
