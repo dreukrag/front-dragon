@@ -1,0 +1,35 @@
+@import "Colors.module.scss";
+.main {
+  width: 100%;
+  label {
+    font-size: medium;
+    font-weight: bold;
+  }
+  textarea {
+    height: 25vh !important;
+  }
+}
+
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  button {
+    border: none;
+    background-color: transparent;
+    i.fa-times-circle {
+      color: $red;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.red {
+  color: $red;
+}
+.green {
+  color: $green;
+}

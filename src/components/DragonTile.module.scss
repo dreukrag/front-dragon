@@ -11,11 +11,17 @@
   background-repeat: no-repeat;
   height: 128px;
   width: 128px;
+
+  @media (max-width: 428px) {
+    margin: 12px;
+    height: 96px;
+    width: 96px;
+  }
   &:hover {
-      cursor: pointer;
+    cursor: pointer;
   }
 
   p {
-      font-weight: bold;
+    font-weight: bold;
   }
 }

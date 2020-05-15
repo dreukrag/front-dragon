@@ -156,7 +156,9 @@ export const GetDragons = () => {
     dispatch({ type: "GET_DRAGONS_START" });
     try {
       //Delay to simulate server delay
-
+      await new Promise((resolve) => {
+        setTimeout(resolve, 2000);
+      });
       const response = await Axios.get(
         "http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/dragon"
       );
@@ -181,13 +183,18 @@ export const GetDragonDetails = (id) => {
     dispatch({ type: "GET_DRAGON_DETAILS_START" });
     try {
       //Delay to simulate server delay
-
+      await new Promise((resolve) => {
+        setTimeout(resolve, 2000);
+      });
       const response = await Axios.get(
         `http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/dragon/${id}`
       );
 
       if (response.status === 200) {
-        dispatch({ type: "GET_DRAGON_DETAILS_SUCCESS", payload: response.data });
+        dispatch({
+          type: "GET_DRAGON_DETAILS_SUCCESS",
+          payload: response.data,
+        });
         if (response.data.length === 0) {
           dispatch({ type: "GET_DRAGON_DETAILS_NO_DRAGONS" });
         }
@@ -201,6 +208,7 @@ export const GetDragonDetails = (id) => {
 
 function DragonReducer(state = initialState, action) {
   switch (action.type) {
+    //Getting dragons
     case "GET_DRAGONS_START":
       return {
         ...state,
@@ -210,7 +218,7 @@ function DragonReducer(state = initialState, action) {
       return {
         ...state,
         dragonsStatus: "SUCCESS",
-        dragons: mockData, //action.payload,
+        dragons: action.payload,
       };
     case "GET_DRAGONS_NO_DRAGONS":
       return {
@@ -222,37 +230,35 @@ function DragonReducer(state = initialState, action) {
         ...state,
         dragonsStatus: "SERVER_FAILURE",
       };
-    case "SELECT_DRAGON":
-      const dragon = state.dragons.find(
-        ({ id }) => id.toString() === action.payload.toString()
-      );
-      if (dragon)
-        return {
-          ...state,
-          selectedDragon: dragon,
-        };
-      else return { ...state };
 
-      case "GET_DRAGON_DETAILS_START":
-        return {
-          ...state,
-          dragonDetailsStatus: "LOADING",
-        };
-      case "GET_DRAGON_DETAILS_SUCCESS":
-        return {
-          ...state,
-          dragonDetailsStatus: "SUCCESS",
-        };
-      case "GET_DRAGON_DETAILS_NO_DRAGONS":
-        return {
-          ...state,
-          dragonDetailsStatus: "NO_INFO",
-        };
-      case "GET_DRAGON_DETAILS_SERVER_FAILURE":
-        return {
-          ...state,
-          dragonDetailsStatus: "SERVER_FAILURE",
-        };
+    //Getting a dragons detail
+    case "GET_DRAGON_DETAILS_START":
+      return {
+        ...state,
+        dragonDetailsStatus: "LOADING",
+      };
+    case "GET_DRAGON_DETAILS_SUCCESS":
+      return {
+        ...state,
+        dragonDetailsStatus: "SUCCESS",
+        selectedDragon: action.payload,
+      };
+    case "GET_DRAGON_DETAILS_NO_DRAGONS":
+      return {
+        ...state,
+        dragonDetailsStatus: "NO_INFO",
+      };
+    case "GET_DRAGON_DETAILS_SERVER_FAILURE":
+      return {
+        ...state,
+        dragonDetailsStatus: "SERVER_FAILURE",
+      };
+    case "DESELECT_DRAGON":
+      return {
+        ...state,
+        dragonDetailsStatus: "INACTIVE",
+        selectedDragon: null,
+      };
 
     default:
       return state;
