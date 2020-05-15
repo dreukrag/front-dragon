@@ -13,10 +13,10 @@ const Tile = styled.div`
   }
 `;
 
-const DragonTile = ({ id, name, type, image, ...rest }) => (
+const DragonTile = ({ id, name, type, image, ...rest }) => {console.log(image);return(
   <Tile image={image} type={type} className={styles.tile} key={id} {...rest}>
     <p>{name}</p>
   </Tile>
-);
+)};
 
 export default DragonTile;

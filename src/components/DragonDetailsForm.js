@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from "./DragonDetailsForm.module.scss";
 import { useState } from "react";
 import { useEffect } from "react";
+import { EditDragonDetails } from "redux/DragonReducer";
 const DragonDetailsForm = ({ close }) => {
   const selectedDragon = useSelector((state) => state.dragon.selectedDragon);
   const [editing, setEditing] = useState(false);
@@ -11,6 +12,7 @@ const DragonDetailsForm = ({ close }) => {
     name: selectedDragon.name,
     type: selectedDragon.type,
     histories: selectedDragon.histories,
+    imageUrl: selectedDragon.imageUrl,
   });
 
   const dispatch = useDispatch();
@@ -19,7 +21,8 @@ const DragonDetailsForm = ({ close }) => {
     if (
       dragonValues.name !== selectedDragon.name ||
       dragonValues.type !== selectedDragon.type ||
-      dragonValues.histories !== selectedDragon.histories
+      dragonValues.histories !== selectedDragon.histories||
+      dragonValues.imageUrl !== selectedDragon.imageUrl
     )
       setChanged(true);
     //selectedDragon.history, selectedDragon.name, selectedDragon.type not included because if the API updates we do not want to override those changes
@@ -31,6 +34,7 @@ const DragonDetailsForm = ({ close }) => {
       name: selectedDragon.name,
       type: selectedDragon.type,
       histories: selectedDragon.histories,
+      imageUrl: selectedDragon.imageUrl,
     });
     setEditing(false);
   };
@@ -82,7 +86,7 @@ const DragonDetailsForm = ({ close }) => {
           <button onClick={() => setEditing(true)} {...getEditProps()}>
             <i class="fas fa-edit"></i>
           </button>
-          <button onClick={() => dispatch(null)} {...getSaveProps()}>
+          <button onClick={() => dispatch(EditDragonDetails(selectedDragon.id ,dragonValues))} {...getSaveProps()}>
             <i className={["fas fa-save", styles.green].join(" ")}></i>
           </button>
           <button onClick={Reset} {...getCancelProps()}>
@@ -124,6 +128,17 @@ const DragonDetailsForm = ({ close }) => {
           type="text"
           name="histories"
           value={dragonValues.histories}
+          disabled={!editing}
+          onChange={(e) => changedValue(e)}
+        />
+      </div>
+      <div className="form-group">
+        <label>Image URL</label>
+        <input
+          className="form-control"
+          type="text"
+          name="imageUrl"
+          value={dragonValues.imageUrl}
           disabled={!editing}
           onChange={(e) => changedValue(e)}
         />
