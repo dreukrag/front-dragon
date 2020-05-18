@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Footer, PrivateRoute, PublicRoute } from "components";
+import { Header, Footer, PrivateRoute } from "components";
 import Login from "pages/Login";
 import {
   BrowserRouter as Router,
