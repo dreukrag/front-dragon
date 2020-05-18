@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './footer.module.scss'
 const Footer = () => (
     <div className={["bg-dark", styles.footer].join(" ")}>
-        <p>By Filipe Groh</p>
+        <h5>By Filipe Groh</h5>
     </div>
 )
 

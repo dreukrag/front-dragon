@@ -2,4 +2,9 @@
 .footer {
   height: 64px;
   color: $text-color;
+  h5 {
+    text-align: end;
+    margin: 0 12px;
+    transform: translateY(10px);
+  }
 }

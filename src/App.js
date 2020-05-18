@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import styles from "./App.module.scss";
 import DragonList from "pages/DragonList";
+import Home from "pages/Home";
 function App() {
   return (
     <Router>
@@ -19,24 +20,14 @@ function App() {
             <Route path="/login">
               <Login />
             </Route>
-            {/* <PrivateRoute path="/list">
+            <PrivateRoute path="/list">
               <DragonList />
-            </PrivateRoute> */}
-            <Route path="/list">
-              <DragonList />
-            </Route>
-            <Route path="/home">Home</Route>
-            <Route exact path="/">
+            </PrivateRoute>
+            <Route path="/home"><Home /></Route>
+            <Route path="/">
               <Redirect
                 to={{
                   pathname: "/home",
-                }}
-              />
-            </Route>
-            <Route>
-              <Redirect
-                to={{
-                  pathname: "/404",
                 }}
               />
             </Route>

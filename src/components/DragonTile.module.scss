@@ -9,19 +9,28 @@
   margin: 24px;
   background-position: center;
   background-repeat: no-repeat;
+  background-size: 256px;
   height: 128px;
   width: 128px;
+  transition: all 0.15s linear;
 
   @media (max-width: 428px) {
     margin: 12px;
     height: 96px;
     width: 96px;
+    &:hover {
+      cursor: pointer;
+      background-size: 96px;
+    }
   }
   &:hover {
     cursor: pointer;
+    background-size: 128px;
   }
 
   p {
     font-weight: bold;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+      1px 1px 0 #000;
   }
 }

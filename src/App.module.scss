@@ -13,6 +13,9 @@
   margin: 24px auto;
   border-radius: 12px;
   //Header, footer, content margins
-  min-height: calc( 100vh - 52px - 64px - 48px);
+  min-height: calc(100vh - 52px - 64px - 48px);
+  @media (max-width: 767px) {
+    min-height: calc(100vh - 59px - 64px - 48px);
+  }
   width: calc(100% - 12px);
 }
