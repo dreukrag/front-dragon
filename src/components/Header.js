@@ -56,7 +56,7 @@ const Header = () => {
                 <Link
                   className={["alert-link", styles.link].join(" ")}
                   target="_blank"
-                  to="//github.com/reactstrap/reactstrap"
+                  to="//github.com/dreukrag/front-dragon"
                 >
                   Github
                 </Link>
